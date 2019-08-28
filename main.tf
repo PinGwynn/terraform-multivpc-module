@@ -101,6 +101,6 @@ output "rtables" {
   value = module.multi-vpc.rtables
 }
 
-#output test {
-#  value = module.multi-vpc.test
-#}
+output test {
+  value = module.multi-vpc.test
+}

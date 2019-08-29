@@ -1,10 +1,16 @@
 variable "AWS_REGION" {
   default = "eu-west-1"
 }
+
+variable "nat_gw" {
+  default = false
+}
+
 variable "vpcs" {
   type = map
   default = {
     multi-vpc1 = {
+       name               = "multi-vpc1-name"
        cidr               = "172.22.0.0/16",
        enable_nat_gateway = true
        single_nat_gateway = false
@@ -26,7 +32,8 @@ variable "vpcs" {
          { 
            name = "Public-A-VPC1",
            cidr = "172.22.10.0/24",
-           az   = "eu-west-1a"
+           az   = "eu-west-1a",
+           nat_gw = true
          },
          {
            name = "Public-B-VPC1",
@@ -41,7 +48,8 @@ variable "vpcs" {
        }
     },
     multi-vpc2 = {
-       cidr            = "172.12.0.0/16",
+       name               = "multi-vpc2-name"
+       cidr               = "172.12.0.0/16",
        enable_nat_gateway = true
        single_nat_gateway = true
        one_nat_gw_per_az  = false
@@ -66,7 +74,8 @@ variable "vpcs" {
          {
            name = "Public-B-VPC2",
            cidr = "172.12.120.0/24",
-           az   = "eu-west-1b"
+           az   = "eu-west-1b",
+           nat_gw = true
          }
        ],
        tags            = {
@@ -101,6 +110,6 @@ output "rtables" {
   value = module.multi-vpc.rtables
 }
 
-output test {
-  value = module.multi-vpc.test
-}
+#output test {
+#  value = module.multi-vpc.test
+#}
